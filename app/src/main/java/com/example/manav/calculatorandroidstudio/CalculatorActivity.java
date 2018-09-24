@@ -13,7 +13,6 @@ public class CalculatorActivity extends AppCompatActivity {
     private String numcopy = "";
     private String operator = "";
     private double result = 0;
-    private double prevnum = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,42 +32,29 @@ public class CalculatorActivity extends AppCompatActivity {
     //onClickOperator -> memoria numero anterior, memoria operador actual fins que apliques "="
     public void onClickOperator(View view){
         Button b = (Button)view;
-        operator = b.getText().toString();
-        if (operator.equals("+")){
-            prevnum += Double.parseDouble(num);
-        }
-        if (operator.equals("-")){
-            prevnum -= Double.parseDouble(num);
-        }
-        if (operator.equals("*")){
-            prevnum *= Double.parseDouble(num);
-        }
-        if (operator.equals("/")){
-            prevnum /= Double.parseDouble(num);
-        }
-        //numcopy = num;
-        num = "";
         numview.setText("");
+        numcopy = num;
+        num = "";
+        operator = b.getText().toString();
 
     }
 
     //onClickEquals
     public void onClickEquals(View view){
         if (operator.equals("+")){
-            result = prevnum + Double.parseDouble(num);
+            result = Double.parseDouble(numcopy) + Double.parseDouble(num);
         }
         if (operator.equals("-")){
-            result = prevnum - Double.parseDouble(num);
+            result = Double.parseDouble(numcopy) - Double.parseDouble(num);
         }
         if (operator.equals("*")){
-            result = prevnum * Double.parseDouble(num);
+            result = Double.parseDouble(numcopy) * Double.parseDouble(num);
         }
         if (operator.equals("/")){
-            result = prevnum / Double.parseDouble(num);
+            result = Double.parseDouble(numcopy) / Double.parseDouble(num);
         }
 
         num = String.valueOf(result);
-        prevnum=result;
         numview.setText(num);
     }
 
