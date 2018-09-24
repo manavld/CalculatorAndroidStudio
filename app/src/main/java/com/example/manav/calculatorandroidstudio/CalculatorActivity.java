@@ -13,6 +13,7 @@ public class CalculatorActivity extends AppCompatActivity {
     private String numcopy = "";
     private String operator = "";
     private double result = 0;
+    private boolean end = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,9 +25,22 @@ public class CalculatorActivity extends AppCompatActivity {
     }
 
     public void onClickDigit(View view) {
-        Button b = (Button)view;
-        num += b.getText().toString().charAt(0);
-        numview.setText(num);
+        if(end == true){
+            numcopy = "";
+            operator = "";
+            result = 0;
+            num = "";
+            Button b = (Button)view;
+            num += b.getText().toString().charAt(0);
+            numview.setText(num);
+            end = false;
+        }
+        else {
+            Button b = (Button) view;
+            num += b.getText().toString().charAt(0);
+            numview.setText(num);
+            end = false;
+        }
     }
 
     //onClickOperator -> memoria numero anterior, memoria operador actual fins que apliques "="
@@ -36,7 +50,7 @@ public class CalculatorActivity extends AppCompatActivity {
         numcopy = num;
         num = "";
         operator = b.getText().toString();
-
+        end = false;
     }
 
     //onClickEquals
@@ -56,6 +70,7 @@ public class CalculatorActivity extends AppCompatActivity {
 
         num = String.valueOf(result);
         numview.setText(num);
+        end = true;
     }
 
     //onClickDot
@@ -63,6 +78,6 @@ public class CalculatorActivity extends AppCompatActivity {
         while (!num.contains(".")){
             num += ".";
         }
-
+        end = false;
     }
 }
